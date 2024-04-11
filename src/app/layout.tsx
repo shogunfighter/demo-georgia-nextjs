@@ -3,12 +3,20 @@ import "./globals.css";
 // import { Inter } from "next/font/google";
 // const inter = Inter({ subsets: ["latin"] });
 
+
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+/**
+ * this is just my assumption to use Roboto - i don't have any ide what font the given design is using
+ * @client question: what fonts are used in the design? 
+ */
+
 import { Roboto } from 'next/font/google'
 
-// client question: what fonts are used in the design? 
-// this is just my assumption to use Roboto
 const roboto = Roboto({
-  weight: ['400', '700'],
+  weight: ['400', '500', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
@@ -26,7 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <ToastContainer />
+        {children}
+      </body>
     </html>
   );
 }

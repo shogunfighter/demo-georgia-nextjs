@@ -17,3 +17,17 @@ $ docker build -t nextjs14geogia .
 
 $ docker run --name nextjs14geogia 
 $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+
+
+
+------------------------- Prisma notes:
+$ npm install @prisma/client
+
+$ npx prisma migrate dev --name init
+
+### if you want to save schema->db
+$ npx prisma push
+
+### if you want to introspect the db->schema
+$ npx prisma pull
+

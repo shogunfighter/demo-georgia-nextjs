@@ -1,21 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getFormattedDate } from "./utils";
+import { useState } from "react";
+import { getFormattedDate } from "@/util";
+import { createBatches } from "@/server/actions";
+import { Bounce, toast } from "react-toastify";
 
 export default function Home() {
   const [curDate, setCurdate] = useState<string>(getFormattedDate(new Date()))
 
-  useEffect
+  async function clientAction(formData: FormData) {
+    const result = await createBatches(formData);
+    if (result?.error) {
+      toast.error(result?.error, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+    else {
+      toast.success('Success', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
 
   return (
       <>
         <div className="container m-0 bg-[#222222] mx-auto p-2 max-w-[500px]">
           <div className="grid grid-cols gap-0.5 sm:mx-auto sm:w-full border-2 border-[#55462f] rounded-md p-10">
-            <p className="text-xl text-white font-bold mb-2">
+            <p className="text-xl text-white font-[500] mb-2">
               Batch Form
             </p>
-            <form className="space-y-4" action="#" method="POST">
+            <form className="space-y-4" action={clientAction} method="POST">
               <div>
                 {/* Model */}
                 <div className="mt-2">
@@ -33,9 +63,7 @@ export default function Home() {
                   </select>
                 </div>
               </div>
-              {/* Date 
-                client question: is this date editable?
-              */}
+              {/* Date @client question: is this date editable? */}
               <div>
                 <div className="mt-2">
                   <input
@@ -92,7 +120,6 @@ export default function Home() {
                     id="comment"
                     name="comment"
                     type="text"
-                    required
                     className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                   />
                 </div>
