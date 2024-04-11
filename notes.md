@@ -31,3 +31,8 @@ $ npx prisma push
 ### if you want to introspect the db->schema
 $ npx prisma pull
 
+
+
+------------------------- Jest testing:
+$ npm install -D jest jest-environment-jsdom @testing-library/react @testing-library/jest-domesting-library/jest-dom
+
