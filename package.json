@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
@@ -14,7 +14,8 @@
     "dockerComposeUpDev": "docker-compose -f docker-compose.dev.yml up",
     "scriptsDockerProd": "echo this scripts are for docker prod",
     "dockerBuildProd": "docker build -f dockerfile.prod -t nextjs14-prod-georgia .",
-    "dockerComposeUpProd": "docker-compose -f docker-compose.prod.yml up"
+    "dockerComposeUpProd": "docker-compose -f docker-compose.prod.yml up",
+    "db:sync": "npx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",
