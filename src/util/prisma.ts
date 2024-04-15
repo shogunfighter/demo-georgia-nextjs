@@ -16,21 +16,41 @@
 //     process.exit(1)
 //   })
 
-import { PrismaClient } from "@prisma/client";
 
-let prisma: PrismaClient;
+
+// import { PrismaClient } from "@prisma/client";
+
+// let prisma: PrismaClient;
+
+// declare global {
+//     var prisma: PrismaClient | undefined;
+// }
+
+// if (process.env.NODE_ENV === "production") {
+//     prisma = new PrismaClient();
+// } else {
+//     if (!global.prisma) {
+//         global.prisma = new PrismaClient();
+//     }
+//     prisma = global.prisma;
+// }
+
+// export default prisma;
+
+
+
+import { PrismaClient } from '@prisma/client'
+
+const prismaClientSingleton = () => {
+  return new PrismaClient()
+}
 
 declare global {
-    var prisma: PrismaClient | undefined;
+  var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>
 }
 
-if (process.env.NODE_ENV === "production") {
-    prisma = new PrismaClient();
-} else {
-    if (!global.prisma) {
-        global.prisma = new PrismaClient();
-    }
-    prisma = global.prisma;
-}
+const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
 
-export default prisma;
+export default prisma
+
+if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma

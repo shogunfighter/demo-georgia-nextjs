@@ -8,13 +8,13 @@ services:
       - '3000:3000'
     # environment:
       # - NODE_ENV=production - dont put this causes issue
-    depends_on:
-      - postgres
-  postgres:
-    image: postgres:10
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
+    # depends_on:
+    #   - postgres
+  # postgres:
+  #   image: postgres:10
+  #   ports:
+  #     - '5432:5432'
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: mydatabase

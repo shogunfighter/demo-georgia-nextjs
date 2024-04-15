@@ -1,7 +1,23 @@
 FROM node:18-alpine
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm ci
-COPY . .
+COPY .env ./.env
+COPY prisma ./prisma
+COPY src ./src
+COPY public ./public
+COPY next-env.d.ts ./next-env.d.ts
+COPY next.config.mjs ./next.config.mjs
+COPY postcss.config.js ./postcss.config.js
+COPY tailwind.config.ts ./tailwind.config.ts
+COPY tsconfig.json ./tsconfig.json
+COPY jest.config.js ./jest.config.js
+
+
+RUN npm install
+# COPY . .
+
 RUN npm run build
+COPY .next ./.next
+
 CMD ["npm", "run", "start"]
